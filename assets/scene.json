@@ -1,0 +1,40 @@
+{
+  "_note": "All coordinates are in the 1920x1080 design space of the layer PNGs. Scale uniformly to the monitor (cover-fit, keep aspect, crop overflow).",
+  "design_size": [1920, 1080],
+  "layers": {
+    "base": "layers/L_base.png  (RGB) ground, gravel bed with raked pattern, stones, moss, tsukubai, azalea bush without flowers",
+    "bed_mask": "layers/L_bed.png  (L) 1 = raked gravel area; cursor ripples only draw here",
+    "object_mask": "layers/L_obj.png  (L) 1 = stones/objects inside the bed; ripples must not draw on these",
+    "fern": "layers/L_fern.png  (RGBA) bottom-right fern overlay, sways around pivot [1800,1080], amplitude ~0.7 deg",
+    "canopy": "layers/L_canopy.png  (RGBA) top maple canopy overlay, sways around pivot [960,-195], amplitude ~0.35 deg"
+  },
+  "rake": {
+    "_note": "Procedural rake pattern used for cursor ripples (redraw sand with an offset phase where the cursor passed).",
+    "main_rings": {"center": [1020, 570], "x_stretch": 1.28, "radius_limit": 430, "period_px": 17.0},
+    "small_rings": {"center": [1380, 720], "x_stretch": 1.2, "radius_limit": 150, "period_px": 17.0},
+    "straight_lines": {"phase": "(y + 0.15*x) / 17.0"},
+    "shading": "light from upper-left (-0.55,-0.83); sand colors dark #7E8573 to light #D8D9C6"
+  },
+  "tsukubai": {"basin_center": [245, 600], "basin_radius": 40, "spout_drip_point": [235, 591]},
+  "azalea": {"center": [230, 930], "radius": 108, "flower_colors": ["#D9789A", "#E99AB3", "#C45F86"], "flower_center": "#F2D9A0"},
+  "time_of_day_grade": {
+    "_note": "Multiply color, then optional screen tint (rgb, alpha). Interpolate between keys by local hour.",
+    "keys": [
+      {"h": 0,    "mul": [70, 86, 140],   "screen": [0, 0, 0, 0],         "night": 1.0},
+      {"h": 5,    "mul": [90, 105, 150],  "screen": [0, 0, 0, 0],         "night": 0.8},
+      {"h": 6.5,  "mul": [238, 252, 246], "screen": [255, 255, 255, 0.03], "night": 0.0},
+      {"h": 10,   "mul": [252, 255, 248], "screen": [255, 255, 240, 0.07], "night": 0.0},
+      {"h": 15,   "mul": [255, 250, 236], "screen": [255, 250, 230, 0.05], "night": 0.0},
+      {"h": 16.8, "mul": [255, 196, 140], "screen": [255, 150, 70, 0.09],  "night": 0.0},
+      {"h": 18.3, "mul": [230, 160, 140], "screen": [255, 120, 60, 0.05],  "night": 0.1},
+      {"h": 19.6, "mul": [80, 96, 150],   "screen": [0, 0, 0, 0],         "night": 0.9},
+      {"h": 24,   "mul": [70, 86, 140],   "screen": [0, 0, 0, 0],         "night": 1.0}
+    ]
+  },
+  "rain_grade": {"desaturate": 0.38, "contrast": 1.08, "brightness": 0.9, "multiply": [202, 218, 234],
+                 "streaks_per_frame": 420, "streak_length_px": [14, 30], "streak_slant": 0.25, "streak_alpha": [0.16, 0.35],
+                 "ground_drop_rings_per_frame": 26, "basin_rings_per_frame": 4},
+  "overcast_grade": {"desaturate": 0.3, "brightness": 0.92, "multiply": [214, 222, 232], "note": "cloudy without rain: no streaks, softer canopy shadow"},
+  "night_extras": {"fireflies": 40, "glow_color": [255, 240, 150], "only_when": "night > 0.3 and not raining"},
+  "leaves": {"count": 22, "colors": ["#8E2F24", "#B04A2E", "#A0402C"], "fall_speed_px_s": 34, "drift_px_s": 20}
+}
